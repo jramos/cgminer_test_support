@@ -19,3 +19,10 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - '*.gemspec'
+
+# Integration-style specs that drive the TCP server end-to-end need
+# room to set up a socket, send bytes, read bytes, and assert. Splitting
+# those into 5-line examples obscures the contract being tested.
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/**/*'
