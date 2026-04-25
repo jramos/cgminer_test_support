@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Standalone fake cgminer for manual testing. Loads the same FakeCgminer
+# class the integration specs use, so behavior is identical to what
+# tests verify. Replaces cgminer_api_client/script/fake_cgminer.
+#
+# Usage:
+#   bundle exec fake_cgminer            # 127.0.0.1:4028
+#   bundle exec fake_cgminer 5000       # 127.0.0.1:5000
+
+$stdout.sync = true
+require 'cgminer_test_support'
+
+port   = (ARGV[0] || 4028).to_i
+server = CgminerTestSupport::FakeCgminer.new(port: port).start
+
+puts "fake cgminer listening on #{server.host}:#{server.port}"
+puts "commands available: #{CgminerTestSupport::Fixtures::DEFAULT.keys.sort.join(', ')}"
+puts 'press Ctrl-C to stop'
+
+%i[INT TERM].each do |sig|
+  trap(sig) do
+    server.stop
+    exit 0
+  end
+end
+sleep

@@ -26,3 +26,8 @@ Metrics/BlockLength:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/**/*'
+
+# Integration specs describe a behavior or executable, not a class.
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/integration/**/*'
