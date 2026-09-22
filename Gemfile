@@ -11,7 +11,9 @@ group :development, :test do
   gem 'rubocop',        '>= 1.60'
   gem 'rubocop-rake',   '>= 0.6'
   gem 'rubocop-rspec',  '>= 2.27'
-  gem 'simplecov',      '>= 0.22'
+  # simplecov 1.3 dropped Ruby 3.2 support; pin with the same rationale
+  # as parallel below.
+  gem 'simplecov',      '>= 0.22', '< 1.3'
 
   # parallel 2.1.0 dropped Ruby 3.2 support. Pin until the gem's
   # minimum supported Ruby is 3.3+. (rubocop pulls parallel transitively.)
